@@ -16,7 +16,7 @@
 2 **Installer les dépendances :**
 
    ```
-   pip install 
+   pip install --no-cache-dir -r requirements.txt
    ```
 
 # Guide d'utilisation
