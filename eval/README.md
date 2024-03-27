@@ -19,8 +19,18 @@
 
    - python et docker
 
+2 **Lancer les images des bases de données :**
 
-2 **Installer les dépendances :**
+    Assurer vous de lancer votre démon docker puis lancer les images suivantes :
+
+   ```
+   docker run -d --name mongo_story_db -p 27017:27017 mongo
+   ```
+   ```
+   docker run --name postgres_story_db -d -p 5432:5432 -e POSTGRES_PASSWORD=story_pass postgres:alpine
+   ```
+
+3 **Installer les dépendances :**
 
    ```
    pip install --no-cache-dir -r requirements.txt
