@@ -16,24 +16,15 @@ from selenium.common.exceptions import NoSuchElementException
 from sqlalchemy import create_engine
 import psycopg2
 from pymongo import MongoClient
+import config
 
-mongo_db_port = 27017
-user = 'postgres'
-password = 'story_pass'
-db = 'postgres'
-port = '5432'
-#######################
-# Sans docker compose #
-#######################
-host = 'localhost'
-mongo_db_host = 'localhost'
-#######################
-#######################
-# Avec docker compose #
-#######################
-host = 'postgres'
-mongo_db_host = 'mongo'
-#######################
+mongo_db_port = config.mongo_db_port
+user = config.postgres_db_user
+password = config.postgres_db_password
+db = config.postgres_db_db
+port = config.postgres_db_port
+host = config.postgres_db_host
+mongo_db_host = config.mongo_db_host
 
 def initialize_driver(headers_list, proxy_list):
     options = Options()
