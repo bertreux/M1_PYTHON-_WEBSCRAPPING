@@ -34,7 +34,7 @@
 2**Lancer le script :**
 
    ```
-   docker compose exec -ti db bash
+   docker compose exec -ti python bash
    ```
 
    Lancer intégralement le fichier selenium_scrapping_meshistoiresdusoir_compose.ipynb

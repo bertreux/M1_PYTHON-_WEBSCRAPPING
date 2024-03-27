@@ -15,6 +15,7 @@ services:
     working_dir: /app
   python:
     build: .
+    tty: true
     volumes:
       - .:/app
     depends_on:
