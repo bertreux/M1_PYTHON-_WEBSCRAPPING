@@ -10,8 +10,8 @@
 
     Modifier le fichier config.py pour avoir les bonnes connections a la base de données postgres et mongodb
     si docker compose :
-        - postgres_db_host = 'localhost' 
-        - mongo_db_host = 'localhost'
+        - postgres_db_host = 'postgres' 
+        - mongo_db_host = 'mongo'
 
 ## Installation sans docker compose
 
