@@ -5,3 +5,4 @@ webdriver_manager
 pandas
 psycopg2-binary
 pymongo
+sqlalchemy
