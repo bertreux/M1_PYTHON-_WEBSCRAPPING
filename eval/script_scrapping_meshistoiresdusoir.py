@@ -1,6 +1,7 @@
 import os
+import config
 #set your environment variable for SSL certificate
-certi_path = r"C:\Users\bertr\AppData\Local\Programs\Python\Python39\Lib\site-packages\pip\_vendor\certifi\cacert.pem"
+certi_path = config.certify
 os.environ['REQUESTS_CA_BUNDLE'] = certi_path
 from selenium.webdriver.common.by import By
 from selenium import webdriver
@@ -16,7 +17,6 @@ from selenium.common.exceptions import NoSuchElementException
 from sqlalchemy import create_engine
 import psycopg2
 from pymongo import MongoClient
-import config
 
 mongo_db_port = config.mongo_db_port
 user = config.postgres_db_user

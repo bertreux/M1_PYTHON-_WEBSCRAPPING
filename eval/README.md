@@ -61,5 +61,5 @@
    Lancer le fichier script_scrapping_meshistoiresdusoir.py
 
    ```
-   py script_scrapping_meshistoiresdusoir.py
+   python script_scrapping_meshistoiresdusoir.py
    ```
