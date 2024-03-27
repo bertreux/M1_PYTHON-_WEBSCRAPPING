@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:alpine
+    shm_size: 128mb
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: story_pass
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    restart: always
+    working_dir: /app
+  python:
+    build: .
+    volumes:
+      - .:/app
+    depends_on:
+      - mongo
+      - postgres
+    
