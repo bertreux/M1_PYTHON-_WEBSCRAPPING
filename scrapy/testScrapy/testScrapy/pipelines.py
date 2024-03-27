@@ -6,8 +6,28 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+from pymongo import MongoClient
 
 
 class TestscrapyPipeline:
     def process_item(self, item, spider):
         return item
+
+class SaveToMongoPipeline:
+
+    def __init__(self):
+        #connect to the MongoDB server (default is localhost on port 27017)
+        self.conn = MongoClient('localhost', 27017)
+        #access the database (create it if it doesn't exist)
+        self.db = self.conn['quote_database']
+        #access the collection (similar to a table in relational databases)
+        self.collection = self.db['quote_collection']
+
+    def process_item(self, item, spider):
+        # Convert item to dict and insert into MongoDB
+        self.collection.insert_one(ItemAdapter(item).asdict())
+        return item
+
+    def close_spider(self, spider):
+        #close the connection to the database
+        self.conn.close()
