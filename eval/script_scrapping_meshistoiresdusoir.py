@@ -254,31 +254,6 @@ df['Questions'] = df['Questions'].apply(json.dumps)
 
 df.to_sql('story_table', engine, if_exists='replace', index=False)
 
-#connect to the PostgreSQL database
-conn = psycopg2.connect(dbname='postgres', user=user, password=password, host=host, port=port)
-
-#create a cursor object
-cursor = conn.cursor()
-
-#list all tables in the database
-cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
-tables = cursor.fetchall()
-print("Tables in the database:")
-for table in tables:
-    print(table)
-
-#check if job_table is created
-if ('story_table',) in tables:
-    print("\nTable 'story_table' exists.")
-else:
-    print("\nTable 'story_table' does not exist.")
-
-#perform a verification query (e.g., selecting the first 5 rows)
-query = "SELECT * FROM story_table LIMIT 5"
-df = pd.read_sql(query, conn)
-print("\nFirst 5 rows of 'story_table':")
-print(df)
-
 #connect to the MongoDB server (default is localhost on port 27017)
 client = MongoClient(mongo_db_host, mongo_db_port)
 
@@ -290,9 +265,5 @@ collection = db['story_collection']
 
 #convert DataFrame to dictionary format and insert into our MongoDB database
 collection.insert_many(df.to_dict('records'))
-
-cursor = collection.find({"Age": "9 ans et plus"})
-for document in cursor:
-    print(document)
 
 driver.quit()
