@@ -38,9 +38,14 @@ def initialize_driver(headers_list, proxy_list):
         options.add_argument(f"--proxy-server={proxy}")
     
     #add some common options
-    #options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_argument("--disable-extensions")
     options.add_argument("--ignore-certificate-errors")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    chrome_prefs = {}
+    options.experimental_options["prefs"] = chrome_prefs
+    chrome_prefs["profile.default_content_settings"] = {"images": 2}
 
     #initialize Chrome WebDriver with the specified options
     service = Service(ChromeDriverManager().install())

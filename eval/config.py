@@ -1,11 +1,11 @@
 # Configuration pour l'exécution sans Docker Compose
-postgres_db_host = 'localhost'
-mongo_db_host = 'localhost'
+#postgres_db_host = 'localhost'
+#mongo_db_host = 'localhost'
 #certify =  r"C:\Users\bertr\AppData\Local\Programs\Python\Python39\Lib\site-packages\pip\_vendor\certifi\cacert.pem"
 
 # Configuration pour l'exécution avec Docker Compose
-#postgres_db_host = 'postgres'
-#mongo_db_host = 'mongo'
+postgres_db_host = 'postgres'
+mongo_db_host = 'mongo'
 certify =  r"/usr/local/lib/python3.8/site-packages/certifi/cacert.pem"
 
 mongo_db_port = 27017
