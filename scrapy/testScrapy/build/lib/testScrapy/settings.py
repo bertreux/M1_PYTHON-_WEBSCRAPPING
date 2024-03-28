@@ -50,18 +50,15 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
+#DOWNLOADER_MIDDLEWARES = {
 #    "testScrapy.middlewares.TestscrapyDownloaderMiddleware": 543,
-    'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
-    'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-}
+#}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
-EXTENSIONS = {
+#EXTENSIONS = {
 #    "scrapy.extensions.telnet.TelnetConsole": None,
-    'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
-}
+#}
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
@@ -96,5 +93,3 @@ ITEM_PIPELINES = {
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
-
-SCRAPEOPS_API_KEY = '243788fe-f148-425b-99b6-3db242b58faa'
