@@ -68,7 +68,7 @@ def nbHisytoryByPage(driver):
         return search_results_count
 
     except Exception as e:
-        print("An error occurred in NB_OFFER:", str(e))
+        print("An error occurred in nbHisytoryByPage:", str(e))
         return 0  # Or handle the exception as needed
 
 def nbHisytoryTot(driver):
@@ -78,7 +78,7 @@ def nbHisytoryTot(driver):
         return int(text_nb_hostory_tot)
 
     except Exception as e:
-        print("An error occurred in NB_OFFER:", str(e))
+        print("An error occurred in nbHisytoryTot:", str(e))
         return 0  # Or handle the exception as needed
 
 def Click(driver, pos):
@@ -100,7 +100,7 @@ def ClickMoreHistory(driver):
         return 1
 
     except Exception as e:
-        print("An error occurred in CLICK:", str(e))
+        print("An error occurred in ClickMoreHistory:", str(e))
         return 0
 
 def GetDatas(driver, story):
