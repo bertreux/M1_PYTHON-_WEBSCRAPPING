@@ -31,3 +31,47 @@ class SaveToMongoPipeline:
     def close_spider(self, spider):
         #close the connection to the database
         self.conn.close()
+
+import psycopg2
+import json
+
+class SavePostgreSQLPipeline:
+
+    def __init__(self):
+        # Connect to the PostgreSQL server
+        # Update the connection details as per your PostgreSQL configuration
+        self.conn = psycopg2.connect(
+            host='localhost',
+            dbname='postgres',
+            user='postgres',
+            password='fred'
+        )
+        self.cur = self.conn.cursor()
+
+        # Create table if it doesn't exist
+        self.cur.execute("""
+        CREATE TABLE IF NOT EXISTS quotes (
+            id SERIAL PRIMARY KEY,
+            quote TEXT,
+            author TEXT,
+            about TEXT,
+            tags JSONB
+        )
+        """)
+        self.conn.commit()
+
+    def process_item(self, item, spider):
+        # Convert item to dict
+        item_dict = ItemAdapter(item).asdict()
+
+        # Insert data into the table
+        self.cur.execute("""
+        INSERT INTO quotes (quote, author, about, tags) VALUES (%s, %s, %s, %s)
+        """, (item_dict['quote'], item_dict['author'], item_dict['about'], json.dumps(item_dict['tags'])))
+        self.conn.commit()
+        return item
+
+    def close_spider(self, spider):
+        # Close the cursor and connection to the database
+        self.cur.close()
+        self.conn.close()

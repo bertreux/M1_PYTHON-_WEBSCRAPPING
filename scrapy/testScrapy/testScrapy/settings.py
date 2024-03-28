@@ -65,6 +65,7 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
     "testScrapy.pipelines.TestscrapyPipeline": 300,
    # "testScrapy.pipelines.SaveToMongoPipeline": 400, #number = priority event
+   #"quotescrap.pipelines.SavePostgreSQLPipeline": 401,#after saving to mongo
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
