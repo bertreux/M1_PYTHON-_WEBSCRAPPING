@@ -2,7 +2,7 @@
 
     Eval de scrapping sur le site : https://www.meshistoiresdusoir.fr/g/histoires-fantastiques/
     Objectif : 
-        - Récupérer les données (le script prend environ 34 minutes pour récuperer toutees les données)
+        - Récupérer les données
         - Analyser les données
         - Rentrer les données dans une base postgres et mongo
 
@@ -63,3 +63,57 @@
    ```
    python script_scrapping_meshistoiresdusoir.py
    ```
+
+## Explication de code
+
+1 **Docker compose :**
+
+   J'ai fait un docker compose avec une image de postgres, mongo normale
+   Mais j'ai build une image python a partir d'un Dockerfile afin de pouvoir installé lors de la création de l'image Chrome, chrome_driver et les imports du requirements.txt
+
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/dockerfile.png?raw=true)
+
+2 **Option du web driver :**
+
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/option_web_driver.png?raw=true)
+
+   Pour les options du web driver j'ai choisi de mettre le --headless, --no-sandbox et --disable-dev-shm-usage parce que lors de l'utilisation de selenium dans un container, chrome ne marchait pas sans
+
+3 **Loop :**
+
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/loop.png?raw=true)
+
+   Cette boucle au départ ne marchait qu'en mode non headless parce que j'utilisais driver.back() qui gardait le fait d'avoir cliquer sur le bouton précèdement 
+   J'ai donc du la modifier pour pouvoir cliquer pour chaque histoire le nombre de fois qu'il faut sur le bouton qui charge plus d'histoire
+
+4 **Fonction ClickMoreHistory :**
+
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/fonction_click_more_history.png?raw=true)
+
+   Cette fonction au départ ne marchait qu'en mode non headless, en mode headless j'avais une erreur pour me dire qu'un element div.container était devant l'élément. J'ai donc modifier le code afin d'abors d'attendre que l'élement soit bien clickable (jusqu'a 10s) puis je scroll jusqu'a bouton, je le clique et j'attend 3 secondes pour etre sur d'avoir bien toutes les histoires qui sont apparus
+
+5 **Fonction GetDatas :**
+
+   Cette fonction est la fonction qui va récupérer toutes les informations de la page après avoir cliquer sur l'histoire :
+
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/get_datas_pat_1.png?raw=true)
+
+   - Tous d'abors on va attendre 3 secondes pour etre sur que tous les émements sont bien apparus sur la page
+   - Puis on va chercher les éléments les plus simple de la page :
+      - age, title, history, category, genre
+
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/get_datas_pat_2.png?raw=true)
+
+   - Puis on va chercher les questions de l'histoire :
+      - Je fais cette partie dans un try car il se peut que l'histoire ne possède pas de question et donc si il n'y en a pas va me retourner une erreur. Ainsi si il ya une erreur je dis que question vaut un array vide. 
+      - Si il ya des question alors je vais chercher l'élément qui possède toutes les questions. Je vais boucler sur toutes les questions et pour chaques questions je vais chercher les réponses et la correction. Après je créer un dictionnaire avec toutes les valeurs et je rentre ce dictionnaire dans un array
+
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/get_datas_pat_3.png?raw=true)
+
+   - Après je récupaire le glossaire de l'histoire :
+      - Pareille que pour les questions je le fais dans un try catch car il se peut qu'il n'y a pas de glossaire
+      - Si il ya un glossaire alors je vais chercher l'élement qui possède tous le glossaire. Et on trouve que pour chaque mot du glossaire on a une balise dt pour le mot et une balise dd pour la définition. Je boucle donc sur ces deux éléments afin de créer un dictionnaire avec tous le glossaire.
+
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/jeux_olympiques.png?raw=true)
+
+   - Je créar après un array avec toutes les valeurs trouvés, l'ajoute au tableau de toutes les histoires et remplis un fichier history.txt avec les valeurs
