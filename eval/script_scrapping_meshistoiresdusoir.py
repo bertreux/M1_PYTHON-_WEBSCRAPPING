@@ -240,6 +240,7 @@ nb_history_page_init = nbHisytoryByPage(driver)
 for a in range(0, nb_page):
     nb_history_page = nbHisytoryByPage(driver)
     for i in range((a * nb_history_page_init), nb_history_page):
+        scroll(driver, j)
         Click(driver, i)
         GetDatas(driver, story)
         driver.back()
