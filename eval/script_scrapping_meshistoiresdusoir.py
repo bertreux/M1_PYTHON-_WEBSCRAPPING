@@ -17,6 +17,9 @@ from selenium.common.exceptions import NoSuchElementException
 from sqlalchemy import create_engine
 import psycopg2
 from pymongo import MongoClient
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 mongo_db_port = config.mongo_db_port
 user = config.postgres_db_user
@@ -95,8 +98,12 @@ def Click(driver, pos):
 def ClickMoreHistory(driver):
     '''Click on the link'''
     try:
-        element = driver.find_element(By.ID, "loadmorebtn")
+        wait = WebDriverWait(driver, 10)  # Attend jusqu'à 10 secondes au maximum
+        element = wait.until(EC.element_to_be_clickable((By.ID, 'loadmorebtn')))
+        actions = ActionChains(driver)
+        actions.move_to_element(element).perform()
         element.click()
+        time.sleep(3)
         return 1
 
     except Exception as e:
@@ -242,9 +249,7 @@ for a in range(0, nb_page):
     for i in range(0, 12):
         if counter != nbHisytoryTotVar:
             for t in range(0, a):
-                time.sleep(2)
                 ClickMoreHistory(driver)
-                time.sleep(2)
             Click(driver, counter)
             GetDatas(driver, story)
             counter = counter + 1
