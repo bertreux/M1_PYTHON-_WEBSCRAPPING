@@ -237,16 +237,20 @@ if nbHisytoryTotVar % nbHisytoryByPageVar != 0:
 
 story = []
 nb_history_page_init = nbHisytoryByPage(driver)
+counter = 0
 for a in range(0, nb_page):
-    nb_history_page = nbHisytoryByPage(driver)
-    for i in range((a * nb_history_page_init), nb_history_page):
-        scroll(driver, j)
-        Click(driver, i)
-        GetDatas(driver, story)
-        driver.back()
-    time.sleep(3)
-    ClickMoreHistory(driver)
-    time.sleep(3)
+    for i in range(0, 12):
+        if counter != nbHisytoryTotVar:
+            for t in range(0, a):
+                time.sleep(2)
+                ClickMoreHistory(driver)
+                time.sleep(2)
+            Click(driver, counter)
+            GetDatas(driver, story)
+            counter = counter + 1
+            driver.back()
+        else:
+            break
 
 df = pd.DataFrame(story)
 df.columns = ["Age", "Titre", "Histoire", "Category", "Genre", "Questions", "Glossaire"]
