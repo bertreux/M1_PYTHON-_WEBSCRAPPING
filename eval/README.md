@@ -21,7 +21,7 @@
 
 2 **Lancer les images des bases de données :**
 
-    Assurer-vous de lancer votre démon docker puis lancer les images suivantes :
+   Assurer-vous de lancer votre démon docker puis lancer les images suivantes :
 
    ```
    docker run -d --name mongo_story_db -p 27017:27017 mongo
