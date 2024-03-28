@@ -96,24 +96,21 @@
 
    Cette fonction est la fonction qui va récupérer toutes les informations de la page après avoir cliquer sur l'histoire :
 
-![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/get_datas_pat_1.png?raw=true)
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/get_datas_part_1.png?raw=true)
 
    - Tous d'abors on va attendre 3 secondes pour etre sur que tous les émements sont bien apparus sur la page
    - Puis on va chercher les éléments les plus simple de la page :
       - age, title, history, category, genre
 
-![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/get_datas_pat_2.png?raw=true)
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/get_datas_part_2.png?raw=true)
 
    - Puis on va chercher les questions de l'histoire :
       - Je fais cette partie dans un try car il se peut que l'histoire ne possède pas de question et donc si il n'y en a pas va me retourner une erreur. Ainsi si il ya une erreur je dis que question vaut un array vide. 
       - Si il ya des question alors je vais chercher l'élément qui possède toutes les questions. Je vais boucler sur toutes les questions et pour chaques questions je vais chercher les réponses et la correction. Après je créer un dictionnaire avec toutes les valeurs et je rentre ce dictionnaire dans un array
 
-![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/get_datas_pat_3.png?raw=true)
+![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/get_datas_part_3.png?raw=true)
 
    - Après je récupaire le glossaire de l'histoire :
       - Pareille que pour les questions je le fais dans un try catch car il se peut qu'il n'y a pas de glossaire
       - Si il ya un glossaire alors je vais chercher l'élement qui possède tous le glossaire. Et on trouve que pour chaque mot du glossaire on a une balise dt pour le mot et une balise dd pour la définition. Je boucle donc sur ces deux éléments afin de créer un dictionnaire avec tous le glossaire.
-
-![alt text](https://github.com/bertreux/M1_PYTHON-_WEBSCRAPPING/blob/main/eval/doc/image/jeux_olympiques.png?raw=true)
-
    - Je créar après un array avec toutes les valeurs trouvés, l'ajoute au tableau de toutes les histoires et remplis un fichier history.txt avec les valeurs
