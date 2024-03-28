@@ -245,15 +245,20 @@ if nbHisytoryTotVar % nbHisytoryByPageVar != 0:
 story = []
 nb_history_page_init = nbHisytoryByPage(driver)
 counter = 0
-for a in range(0, nb_page):
+for a in range(0, nb_page + 1):
     for i in range(0, 12):
         if counter != nbHisytoryTotVar:
             for t in range(0, a):
+                time.sleep(0.2)
                 ClickMoreHistory(driver)
-            Click(driver, counter)
-            GetDatas(driver, story)
-            counter = counter + 1
-            driver.back()
+                time.sleep(0.2)
+            res = Click(driver, counter)
+            if res == 1:
+                GetDatas(driver, story)
+                counter = counter + 1
+                driver.back()
+            else:
+                i = i - 1
         else:
             break
 
